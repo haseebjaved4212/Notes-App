@@ -1,40 +1,75 @@
-import React from "react";
+import React, { useState } from "react";
 
 const App = () => {
-  return (
-    <div className="App  ">
-      <h1 className="text-4xl text-center">Notes App </h1>
+  const [notes, setNotes] = useState([]);
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
 
-      <div className="flex gap-5 ">
-        <div className="bg-blend-hard-light flex flex-col gap-3.5 h-screen w-2/4  px-10 py-20 ">
-          <form>
+  const formHandler = (e) => {
+    e.preventDefault();
+    if (title.trim() && content.trim()) {
+      setNotes([...notes, { title, content, id: Date.now() }]);
+      setTitle("");
+      setContent("");
+    }
+  };
+
+  return (
+    <div className="min-h-screen bg-gray-900">
+      <h1 className="text-4xl text-center py-6 font-bold text-blue-400">
+        Notes App
+      </h1>
+
+      <div className="flex flex-col md:flex-row gap-6 px-4 md:px-8">
+        {/* Form Section */}
+        <div className="w-full md:w-1/3 bg-gray-800 rounded-lg shadow-md p-6 border border-gray-700">
+          <form onSubmit={formHandler} className="space-y-4">
             <input
               type="text"
-              name=""
-              id=""
-              placeholder="Notes Heading "
-              className=" h-[50px] w-full  font-medium outline-noneborder-2 rounded m-2  p-2"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              placeholder="Note Title"
+              className="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-white placeholder-gray-400"
             />
             <textarea
-              type="text"
-              name=""
-              id=""
-              placeholder="Notes  "
-              className=" h-[90px] w-full font-medium outline-none border-2 rounded m-2  p-2"
+              value={content}
+              onChange={(e) => setContent(e.target.value)}
+              placeholder="Note Content"
+              className="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-md h-32 resize-none focus:outline-none focus:ring-2 focus:ring-blue-500 text-white placeholder-gray-400"
             />
-            <button className="bg-white text-black outline-none p-3 m-2  rounded w-full ">
+            <button
+              type="submit"
+              className="w-full bg-blue-700 text-gray-900 py-2 px-4 rounded-md hover:bg-blue-800 transition-colors"
+            >
               Add Note
             </button>
           </form>
         </div>
-        {/* <div>
-          <img
-            src="https://www.pngmart.com/files/20/Pen-Writing-PNG-Photos.png"
-            alt=""
-            className="h-100 w-100"
-        
-          />
-        </div> */}
+
+        {/* Notes Display Section */}
+        <div className="w-full md:w-2/3">
+          <h2 className="text-2xl font-bold text-center text-blue-400 mb-4">
+            Your Notes
+          </h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {notes.map((note) => (
+              <div
+                key={note.id}
+                className="bg-gray-800 p-4 rounded-lg shadow-md hover:shadow-purple-900/50 transition-shadow border border-gray-700"
+              >
+                <h3 className="text-xl font-semibold text-purple-400 mb-2">
+                  {note.title}
+                </h3>
+                <p className="text-gray-300">{note.content}</p>
+              </div>
+            ))}
+            {notes.length === 0 && (
+              <p className="text-gray-400 col-span-full text-center py-4">
+                No notes yet. Create your first note!
+              </p>
+            )}
+          </div>
+        </div>
       </div>
     </div>
   );

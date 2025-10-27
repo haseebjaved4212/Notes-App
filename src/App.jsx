@@ -39,7 +39,7 @@ const App = () => {
             />
             <button
               type="submit"
-              className="w-full bg-blue-700 text-gray-900 py-2 px-4 rounded-md hover:bg-blue-800 transition-colors"
+              className="w-full bg-blue-700 text-white py-2 px-4 rounded-md hover:bg-blue-800 transition-colors"
             >
               Add Note
             </button>
@@ -55,9 +55,9 @@ const App = () => {
             {notes.map((note) => (
               <div
                 key={note.id}
-                className="bg-gray-800 p-4 rounded-lg shadow-md hover:shadow-purple-900/50 transition-shadow border border-gray-700"
+                className="bg-gray-800 p-4 rounded-lg shadow-md hover:shadow-blue-900/50 transition-shadow border border-gray-700"
               >
-                <h3 className="text-xl font-semibold text-purple-400 mb-2">
+                <h3 className="text-xl font-semibold text-blue-400 mb-2">
                   {note.title}
                 </h3>
                 <p className="text-gray-300">{note.content}</p>

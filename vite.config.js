@@ -6,5 +6,5 @@ export default defineConfig({
   plugins: [react(), tailwindcss(),
 
   ],
-  base: '/Notes-App/'
+  base: '/Notes-App'
 })
